@@ -76,6 +76,8 @@ walkpgdir(pde_t *pgdir, const void *va, int alloc)
 
   perm是什么？猜测是PTE中其他标志位（待查证）(查证结果：应该是的)  
   
+  11/21 15:21：perm表示该页的权限：“同时赋予该页的权限perm” https://www.cnblogs.com/icoty23/p/10993861.html#_label1
+  
   
   
 * **walkpgdir()函数中“*pde = V2P(pgtab) | PTE_P | PTE_W | PTE_U;”代码的含义是什什么？**
@@ -92,9 +94,11 @@ walkpgdir(pde_t *pgdir, const void *va, int alloc)
   #define P2V(a) ((void *)(((char *) (a)) + KERNBASE))//实地址到虚地址
   ```
 
-  实地址到虚地址加了一个偏移量KERNBASE，此偏移量表示内核虚地址起始地址；虚地址到实地址反之。
+  实地址到虚地址加了一个偏移量KERNBASE，此偏移量表示内核虚地址起始地址；虚地址到实地址反之。（静态重定位）
 
   （啥叫如何实现？上面写的算是回答了这个问题吗？）
+
+  11/21 15:19（大概明白了问题什么意思，需要细看kalloc函数，待补充）
 
   
 
